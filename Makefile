@@ -4,6 +4,7 @@ SCR= main.c \
 	utils.c	\
 	extra.c	\
 	arguments.c	\
+	time.c \
 
 OBJ = $(SCR:.c=.o)
 

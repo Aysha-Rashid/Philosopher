@@ -39,6 +39,7 @@ int	main(int argc, char **argv)
 		return (error("more than 6 arg"), 0);
 	if (parsing_arg(argv))
 		return (0);
+	// printf("\nhere\n");
 	init_philo(argv, &data);
 	simulation(argv, &data);
 		// create thread
@@ -47,6 +48,40 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
+// int i = 0;
+// void *count_to_100(void *arg)
+// {
+//  (void)arg;
+// // 
+// //  for(int i = 0; i < 10000000; i++)
+// //  {
+// //  	printf("i = %d, The count has finished\n", i);
+// //  }
+// 	while (i < 1000000000)
+// 		i++;
+//  return (NULL);
+// }
+
+// void *print_hello(void *arg)
+// {
+//  (void)arg;
+// 	while (i < 1000000000)
+// 		i++;
+//  return (NULL);
+// }
+
+// int main()
+// {
+//  pthread_t thread_1;
+//  pthread_t thread_2;
+
+//  pthread_create(&thread_1, NULL, count_to_100, NULL);
+//  pthread_create(&thread_2, NULL, print_hello, NULL);
+//   pthread_join(thread_1, NULL);
+//  pthread_join(thread_2, NULL);
+//  printf("%d\n", i);
+// }
+
 //keep checking how many fork they have by their side
 //how many times they are eating
-// give priority to the one who ate less
+//give priority to the one who ate less
