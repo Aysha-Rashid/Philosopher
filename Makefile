@@ -7,7 +7,8 @@ SCR= main.c \
 	time.c \
 
 OBJ = $(SCR:.c=.o)
-
+CC = cc
+CFLAGS = -Wall -Wextra -Werror 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 

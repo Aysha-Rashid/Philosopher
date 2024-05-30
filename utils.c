@@ -17,7 +17,7 @@ void	error(char *message)
 	if (ft_strcmp(message, "philo_is_zero") == 0)
 		printf("Philo cannot be zero\n");
 	else if (ft_strcmp(message, "arguments is negative") == 0)
-		printf("arguments should be positive\n");
+		printf("arguments should be positive integer\n");
 	else if (ft_strcmp(message, "Philo is 200") == 0)
 		printf("Philo should not be more than 200\n");
 	else if (ft_strcmp(message, "more than 6 arg") == 0)
@@ -60,30 +60,20 @@ void	init_philo(char **argv, t_data *data)
 	philo = NULL;
 	last = NULL;
 	data->time = get_current_time();
-	no_of_philo = atoi(argv[1]);
-	if (no_of_philo > 200)
-	{
-		error("Philo is 200");
-		return ;
-	}
+	no_of_philo = ft_atoi(argv[1]);
 	pthread_mutex_init(&data->left_fork, NULL);
 	pthread_mutex_init(&data->right_fork, NULL);
-	// data->number_of_philo->current_philo = 1;
 	while (i < no_of_philo)
 	{
 		philo = malloc(sizeof(t_philo));
 		if (philo == NULL)
 			exit(EXIT_FAILURE);
 		philo->total_philo = no_of_philo;
-		// philo->current_philo = no_of_philo - philo->current_philo;
-		philo->time_to_die = atoi(argv[2]);
-		philo->time_to_eat = atoi(argv[3]);
-		philo->time_to_sleep = atoi(argv[4]);
+		philo->time_to_die = ft_atoi(argv[2]);
+		philo->time_to_eat = ft_atoi(argv[3]);
+		philo->time_to_sleep = ft_atoi(argv[4]);
 		if (argv[5])
-		{
-			philo->no_of_meal = atoi(argv[5]);
-			// printf("first time no_of_meal : %d\n", philo->no_of_meal);
-		}
+			philo->no_of_meal = ft_atoi(argv[5]);
 		else
 			philo->no_of_meal = -1;
 		philo->next = NULL;
@@ -110,3 +100,4 @@ void	free_philos(t_data *data)
 	}
 	data->number_of_philo = NULL;
 }
+

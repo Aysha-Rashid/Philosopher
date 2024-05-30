@@ -18,16 +18,6 @@
 
 #include "philo.h"
 
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -39,7 +29,11 @@ int	main(int argc, char **argv)
 		return (error("more than 6 arg"), 0);
 	if (parsing_arg(argv))
 		return (0);
-	// printf("\nhere\n");
+	if (ft_atoi(argv[1]) > 200)
+	{
+		error("Philo is 200");
+		return (0);
+	}
 	init_philo(argv, &data);
 	simulation(argv, &data);
 		// create thread

@@ -46,3 +46,6 @@ int		ft_strcmp(char	*str1, char	*str2);
 void	simulation(char	**argv, t_data	*data);
 size_t	get_current_time(void);
 size_t	ft_sleep(size_t	milliseconds);
+int		overflow(long max, long r, int sign);
+int		ft_atoi(const char	*str);
+int	ft_isdigit(int c);
