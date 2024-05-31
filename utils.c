@@ -49,55 +49,54 @@ int	parsing_arg(char **argv)
 	return (0);
 }
 
-void	init_philo(char **argv, t_data *data)
+void	init_philo(t_data *data, char **argv)
 {
-	t_philo	*philo;
-	t_philo	*last;
-	int		no_of_philo;
 	int		i;
 
 	i = 0;
-	philo = NULL;
-	last = NULL;
-	data->time = get_current_time();
-	no_of_philo = ft_atoi(argv[1]);
-	pthread_mutex_init(&data->left_fork, NULL);
-	pthread_mutex_init(&data->right_fork, NULL);
-	while (i < no_of_philo)
+	while (i < data->total_philo)
 	{
-		philo = malloc(sizeof(t_philo));
-		if (philo == NULL)
-			exit(EXIT_FAILURE);
-		philo->total_philo = no_of_philo;
-		philo->time_to_die = ft_atoi(argv[2]);
-		philo->time_to_eat = ft_atoi(argv[3]);
-		philo->time_to_sleep = ft_atoi(argv[4]);
+
+		data->number_of_philo[i].current_philo = i + 1;
+		data->number_of_philo[i].time = get_current_time();
 		if (argv[5])
-			philo->no_of_meal = ft_atoi(argv[5]);
+			data->number_of_philo[i].no_of_meal = ft_atoi(argv[5]);
 		else
-			philo->no_of_meal = -1;
-		philo->next = NULL;
-		if (data->number_of_philo == NULL)
-			data->number_of_philo = philo;// only comes here once so they save the value once and i dont have to allocate memory for it
-		else
-			last->next = philo;
-		last = philo;
+			data->number_of_philo[i].no_of_meal = -1;
+		data->number_of_philo[i].time_to_eat = ft_atoi(argv[2]);
+		data->number_of_philo[i].time_to_sleep = ft_atoi(argv[4]);
+		pthread_mutex_init(&data->number_of_philo[i].left_fork, NULL);
+		pthread_mutex_init(&data->number_of_philo[i + 1].right_fork, NULL);
 		i++;
 	}
 }
 
-void	free_philos(t_data *data)
+void	init(char **argv, t_data *data)
 {
-	t_philo	*current;
-	t_philo	*temp;
+	int		no_of_philo;
 
-	current = data->number_of_philo;
-	while (current != NULL)
+	no_of_philo = ft_atoi(argv[1]);
+	data->total_philo = no_of_philo;
+	data->number_of_philo = malloc(data->total_philo * sizeof(t_philo));
+	if (data->number_of_philo == NULL)
 	{
-		temp = current;
-		current = current->next;
-		free(temp);
+		perror("malloc() error");
+		return ;
 	}
-	data->number_of_philo = NULL;
+	init_philo(data, argv);
 }
 
+// void	free_philos(t_data *data)
+// {
+// 	// t_philo	*current;
+// 	// t_philo	*temp;
+// 	int		i;
+
+// 	// current = data->number_of_philo;
+// 	while (i < data->total_philo)
+// 	{
+// 		free(data->number_of_philo);
+// 		i++;
+// 	}
+// 	data->number_of_philo = NULL;
+// }
