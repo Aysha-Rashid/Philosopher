@@ -49,54 +49,59 @@ int	parsing_arg(char **argv)
 	return (0);
 }
 
-void	init_philo(t_data *data, char **argv)
+void	init_philo(t_data	*data, char	**argv)
 {
-	int		i;
+	int	i;
+	int	no_of_philo;
 
 	i = 0;
+	no_of_philo = ft_atoi(argv[1]);
+	data->total_philo = no_of_philo;
 	while (i < data->total_philo)
 	{
-
-		data->number_of_philo[i].current_philo = i + 1;
-		data->number_of_philo[i].time = get_current_time();
+		data->resources[i].current_philo = i + 1;
+		data->resources[i].time_to_die = ft_atoi(argv[2]);
+		data->resources[i].time_to_eat = ft_atoi(argv[3]);
+		data->resources[i].time_to_sleep = ft_atoi(argv[4]);
 		if (argv[5])
-			data->number_of_philo[i].no_of_meal = ft_atoi(argv[5]);
+			data->resources[i].no_of_meal = ft_atoi(argv[5]);
 		else
-			data->number_of_philo[i].no_of_meal = -1;
-		data->number_of_philo[i].time_to_eat = ft_atoi(argv[2]);
-		data->number_of_philo[i].time_to_sleep = ft_atoi(argv[4]);
-		pthread_mutex_init(&data->number_of_philo[i].left_fork, NULL);
-		pthread_mutex_init(&data->number_of_philo[i + 1].right_fork, NULL);
+			data->resources[i].no_of_meal =	-1;
+		data->resources[i].last_meal_time = get_current_time();
+		data->resources[i].data = data;
+		pthread_mutex_init(&data->resources[i].left_fork, NULL);
+		pthread_mutex_init(&data->resources[(i + 1) % no_of_philo].right_fork,
+			NULL);
 		i++;
 	}
 }
 
 void	init(char **argv, t_data *data)
 {
-	int		no_of_philo;
+	int	no_of_philo;
 
 	no_of_philo = ft_atoi(argv[1]);
 	data->total_philo = no_of_philo;
-	data->number_of_philo = malloc(data->total_philo * sizeof(t_philo));
-	if (data->number_of_philo == NULL)
+	data->resources = malloc(sizeof(t_philo) * data->total_philo);
+	if (data->resources == NULL)
 	{
 		perror("malloc() error");
-		return ;
+		exit(EXIT_FAILURE);
 	}
+	pthread_mutex_init(&data->death_check, NULL);
 	init_philo(data, argv);
 }
 
 // void	free_philos(t_data *data)
 // {
-// 	// t_philo	*current;
-// 	// t_philo	*temp;
-// 	int		i;
+// 	int	i;
 
-// 	// current = data->number_of_philo;
-// 	while (i < data->total_philo)
+// 	i = 0;
+// 	while (data->total_philo > i)
 // 	{
-// 		free(data->number_of_philo);
+// 		pthread_mutex_destroy(data->resources[i].thread);
 // 		i++;
 // 	}
-// 	data->number_of_philo = NULL;
+// 	free(data->resources);
+// 	data->resources = NULL;
 // }

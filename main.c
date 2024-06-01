@@ -21,8 +21,8 @@
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	data.number_of_philo = 0;
 
+	// data.resources = 0;
 	if (argc < 5)
 		return (error("less then 5 arg"), 0);
 	if (argc > 6)
@@ -30,10 +30,7 @@ int	main(int argc, char **argv)
 	if (parsing_arg(argv))
 		return (0);
 	if (ft_atoi(argv[1]) > 200)
-	{
-		error("Philo is 200");
-		return (0);
-	}
+		return(error("Philo is 200"), 0);
 	// data.time = get_current_time();
 	// printf("\n\ndata.time %zu\n\n", data.time);
 	init(argv, &data);

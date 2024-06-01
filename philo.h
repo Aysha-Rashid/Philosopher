@@ -20,26 +20,26 @@
 
 typedef struct s_philo
 {
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				no_of_meal;
 	int				current_philo;
-	size_t			time;
-	pthread_mutex_t	right_fork;
+	int				no_of_meal;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	size_t			time_to_die;
+	size_t			last_meal_time;
 	pthread_mutex_t	left_fork;
+	pthread_mutex_t	right_fork;
 	pthread_t		thread;
-	// t_data			*data;
-	// struct s_philo	*next;
+	struct s_data	*data;
 }				t_philo;
 
 typedef struct s_data
 {
-	int		total_philo;
-	int		dead_flag;
-	size_t	time;
-	t_philo	*number_of_philo;
-}			t_data;
+	int				total_philo;
+	int				dead_flag;
+	size_t			time;
+	t_philo			*resources;
+	pthread_mutex_t	death_check;
+}				t_data;
 
 int		parsing_arg(char **argv);
 void	init(char **argv, t_data *data);
