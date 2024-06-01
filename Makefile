@@ -3,7 +3,7 @@ NAME = philo
 SCR= main.c \
 	utils.c	\
 	extra.c	\
-	arguments.c	\
+	simulation.c \
 	time.c \
 
 OBJ = $(SCR:.c=.o)
