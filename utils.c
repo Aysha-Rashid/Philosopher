@@ -76,21 +76,40 @@ void	init_philo(t_data	*data, char	**argv)
 	}
 }
 
-void	init(char **argv, t_data *data)
-{
-	int	no_of_philo;
+// void	init(char **argv, t_data *data)
+// {
+// 	int	no_of_philo;
 
-	no_of_philo = ft_atoi(argv[1]);
-	data->total_philo = no_of_philo;
-	data->resources = malloc(sizeof(t_philo) * data->total_philo);
-	if (data->resources == NULL)
-	{
-		perror("malloc() error");
-		exit(EXIT_FAILURE);
-	}
-	pthread_mutex_init(&data->death_check, NULL);
-	init_philo(data, argv);
+// 	no_of_philo = ft_atoi(argv[1]);
+// 	data->total_philo = no_of_philo;
+// 	data->resources = malloc(sizeof(t_philo) * data->total_philo );
+// 	if (data->resources == NULL)
+// 	{
+// 		perror("malloc() error");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	data->dead_flag = 0;
+// 	init_philo(data, argv);
+// 	pthread_mutex_init(&data->death_check, NULL);
+// }
+
+void init(char **argv, t_data *data)
+{
+    int no_of_philo;
+
+    no_of_philo = ft_atoi(argv[1]);
+    data->total_philo = no_of_philo;
+    data->resources = malloc(sizeof(t_philo) * data->total_philo);
+    if (data->resources == NULL)
+    {
+        perror("malloc() error");
+        exit(EXIT_FAILURE);
+    }
+    data->dead_flag = 0;
+    init_philo(data, argv);
+    pthread_mutex_init(&data->death_check, NULL);
 }
+
 
 // void	free_philos(t_data *data)
 // {

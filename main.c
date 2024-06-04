@@ -31,13 +31,8 @@ int	main(int argc, char **argv)
 		return (0);
 	if (ft_atoi(argv[1]) > 200)
 		return(error("Philo is 200"), 0);
-	// data.time = get_current_time();
-	// printf("\n\ndata.time %zu\n\n", data.time);
 	init(argv, &data);
 	simulation(&data);
-	// check_simulation(&data);
-		// create thread
-		// simulation
 	// free_philos(&data);
 	return (0);
 }

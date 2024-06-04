@@ -36,6 +36,7 @@ typedef struct s_data
 {
 	int				total_philo;
 	int				dead_flag;
+	int				thread_current_flag;
 	size_t			time;
 	t_philo			*resources;
 	pthread_mutex_t	death_check;
@@ -46,7 +47,7 @@ void	init(char **argv, t_data *data);
 void	free_philos(t_data *data);
 void	error(char *message);
 int		ft_strcmp(char	*str1, char	*str2);
-void	simulation(t_data	*data);
+void	*simulation(t_data	*data);
 size_t	get_current_time(void);
 size_t	ft_sleep(size_t	milliseconds);
 int		overflow(long max, long r, int sign);
