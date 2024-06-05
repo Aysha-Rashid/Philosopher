@@ -21,6 +21,7 @@
 typedef struct s_philo
 {
 	int				current_philo;
+	int				meal_finish;
 	int				no_of_meal;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
@@ -49,7 +50,7 @@ void	error(char *message);
 int		ft_strcmp(char	*str1, char	*str2);
 void	*simulation(t_data	*data);
 size_t	get_current_time(void);
-size_t	ft_sleep(size_t	milliseconds);
+void	ft_sleep(int	milliseconds);
 int		overflow(long max, long r, int sign);
 int		ft_atoi(const char	*str);
 int		ft_isdigit(int c);

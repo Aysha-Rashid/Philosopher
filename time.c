@@ -12,15 +12,19 @@
 
 #include "philo.h"
 
-size_t	ft_sleep(size_t	milliseconds)
-{
-	size_t	start;
+// size_t	ft_sleep(size_t	milliseconds)
+// {
+// 	size_t	start;
 
-	start = get_current_time();
-	while ((get_current_time() - start) < milliseconds)
-		usleep(milliseconds / 10);
-	// printf("\n\n\nmilliseconds: %zu\n\n\n", get_current_time() - start);
-	return (0);
+// 	start = get_current_time();
+// 	while ((get_current_time() - start) < milliseconds)
+// 		usleep(milliseconds / 10);
+// 	// printf("\n\n\nmilliseconds: %zu\n\n\n", get_current_time() - start);
+// 	return (0);
+// }
+
+void ft_sleep(int milliseconds) {
+    usleep(milliseconds * 1000);
 }
 
 size_t	get_current_time(void)
@@ -32,6 +36,6 @@ size_t	get_current_time(void)
 		printf("gettimeofday error!\n");
 		return (0);
 	}
-	return (time.tv_sec*1000 + time.tv_usec/1000); // convert the number of seconds into milliseconds
+	return (time.tv_sec * 1000 + time.tv_usec / 1000); // convert the number of seconds into milliseconds
 	// convert the number of microseconds into milliseconds
 }

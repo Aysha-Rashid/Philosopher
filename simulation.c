@@ -19,8 +19,10 @@ void *monitor(void *arg)
 
 	i = 0;
 	data = (t_data *)arg;
-	// while (!data->dead_flag)
-	// {
+	while (!data->dead_flag)
+	{
+		// if (data->resources[i].meal_finish == 1)
+		// 	break ;
 		pthread_mutex_lock(&data->death_check);
 		for (i = 0; i < data->total_philo && !data->dead_flag; i++)
 		{
@@ -35,12 +37,14 @@ void *monitor(void *arg)
 		}
 		pthread_mutex_unlock(&data->death_check);
 		usleep(1000);
-	// }
+	}
 	return NULL;
 }
 
 void eat(t_philo *philo, t_data *data)
 {
+	// if (data->dead_flag)
+	// 	return ;
 	if (!data->dead_flag)
 	{
 		if (philo->current_philo % 2 == 0)
@@ -54,7 +58,7 @@ void eat(t_philo *philo, t_data *data)
 		}
 		else
 		{
-			// usleep(1500);
+			usleep(1000);
 			pthread_mutex_lock(philo->right_fork);
 			printf("%zu %d %s\n", get_current_time() - data->time,
 				   philo->current_philo, "has taken a fork");
@@ -73,10 +77,10 @@ void eat(t_philo *philo, t_data *data)
 	}
 }
 
-// time issues
-// mutex_lock and unlock for each philo
-// odd number of philo check
-// number of meals
+// // time issues
+// // mutex_lock and unlock for each philo
+// // odd number of philo check
+// // number of meals
 
 void *routine(void *arg)
 {
@@ -84,22 +88,28 @@ void *routine(void *arg)
 
 	philo = (t_philo *)arg;
 	philo->data->time = get_current_time();
-	while (!philo->data->dead_flag)
+	while (!philo->data->dead_flag && !philo->meal_finish)
 	{
 		eat(philo, philo->data);
 		if (philo->data->dead_flag)
 			return NULL;
+		if (philo->no_of_meal > 0)
+		{
+			philo->no_of_meal--;
+			printf("current philo: %d no_of_meal: %d\n", philo->current_philo, philo->no_of_meal);
+		}
+		// if (philo->no_of_meal == 0)
+		// 	philo->meal_finish = 1;
 		printf("%zu %d %s\n", get_current_time() - philo->data->time,
 			   philo->current_philo, "is sleeping");
 		ft_sleep(philo->time_to_sleep); // Simulate thinking
 		printf("%zu %d %s\n", get_current_time() - philo->data->time,
 			   philo->current_philo, "is thinking");
-		if (philo->no_of_meal > 0)
-			philo->no_of_meal--;
+		// if (philo->no_of_meal > 0)
+		// 	philo->no_of_meal--;
 	}
 	return NULL;
 }
-
 
 void *simulation(t_data *data)
 {
@@ -113,6 +123,7 @@ void *simulation(t_data *data)
 		printf("%zu %d %s\n", get_current_time() - data->time,
 			   data->resources->current_philo, "has taken a fork");
 	}
+	data->time = get_current_time();
 	while (++i < data->total_philo)
 	{
 		if (pthread_create(&data->resources[i].thread, NULL, routine, &data->resources[i]) != 0)
@@ -130,4 +141,3 @@ void *simulation(t_data *data)
 		return (perror("pthread_join() error"), NULL);
 	return NULL;
 }
-

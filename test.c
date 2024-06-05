@@ -151,9 +151,9 @@ int main() {
         philosophers[i].current_philo = i + 1;
         philosophers[i].last_meal_time = get_current_time();
         philosophers[i].time_to_eat = 200; // 2 seconds
-        philosophers[i].time_to_sleep = 300; // 3 seconds
-        philosophers[i].time_to_die = 300; // 10 seconds
-        philosophers[i].no_of_meal = -1; // Number of meals each philosopher should have
+        philosophers[i].time_to_sleep = 200; // 3 seconds
+        philosophers[i].time_to_die = 800; // 10 seconds
+        philosophers[i].no_of_meal = 7; // Number of meals each philosopher should have
         philosophers[i].data = &data;
         pthread_mutex_init(&philosophers[i].left_fork, NULL);
         if (i == NUM_PHILOSOPHERS - 1) {

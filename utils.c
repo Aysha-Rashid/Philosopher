@@ -59,6 +59,7 @@ void	init_philo(t_data	*data, char	**argv)
 	data->total_philo = no_of_philo;
 	while (i < data->total_philo)
 	{
+		data->resources[i].meal_finish = 0;
 		data->resources[i].current_philo = i + 1;
 		data->resources[i].time_to_die = ft_atoi(argv[2]);
 		data->resources[i].time_to_eat = ft_atoi(argv[3]);

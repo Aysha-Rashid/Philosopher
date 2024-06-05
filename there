@@ -1,0 +1,46 @@
+0 2 has taken a fork
+1 2 has taken a fork
+1 2 is eating
+0 4 has taken a fork
+1 4 has taken a fork
+1 4 is eating
+1 5 has taken a fork
+current philo: 2 no_of_meal: 6
+201 2 is sleeping
+201 1 has taken a fork
+201 3 has taken a fork
+201 3 has taken a fork
+201 3 is eating
+current philo: 4 no_of_meal: 6
+201 4 is sleeping
+201 5 has taken a fork
+201 5 is eating
+401 2 is thinking
+402 4 is thinking
+current philo: 3 no_of_meal: 6
+402 3 is sleeping
+402 4 has taken a fork
+402 4 has taken a fork
+402 4 is eating
+current philo: 5 no_of_meal: 6
+405 5 is sleeping
+402 1 has taken a fork
+405 1 is eating
+602 3 is thinking
+current philo: 4 no_of_meal: 5
+602 4 is sleeping
+603 3 has taken a fork
+603 3 has taken a fork
+603 3 is eating
+605 5 is thinking
+current philo: 1 no_of_meal: 6
+605 1 is sleeping
+605 2 has taken a fork
+606 5 has taken a fork
+606 5 has taken a fork
+606 5 is eating
+802 2 died
+802 4 is thinking
+804 2 has taken a fork
+804 2 is eating
+805 1 is thinking
