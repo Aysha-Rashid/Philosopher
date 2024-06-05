@@ -70,8 +70,12 @@ void	init_philo(t_data	*data, char	**argv)
 		data->resources[i].last_meal_time = get_current_time();
 		data->resources[i].data = data;
 		pthread_mutex_init(&data->resources[i].left_fork, NULL);
-		pthread_mutex_init(&data->resources[(i + 1) % no_of_philo].right_fork,
-			NULL);
+		if (i == data->total_philo - 1)
+			data->resources[i].right_fork = &data->resources[0].left_fork;
+		else
+			data->resources[i].right_fork = &data->resources[i + 1].left_fork;
+		// pthread_mutex_init(&data->resources[(i + 1) % no_of_philo].right_fork,
+		// 	NULL);
 		i++;
 	}
 }
