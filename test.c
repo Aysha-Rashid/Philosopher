@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <sys/time.h>
 
-#define NUM_PHILOSOPHERS 5
+#define NUM_PHILOSOPHERS 4
 
 typedef struct t_data t_data;
 
@@ -152,7 +152,7 @@ int main() {
         philosophers[i].last_meal_time = get_current_time();
         philosophers[i].time_to_eat = 200; // 2 seconds
         philosophers[i].time_to_sleep = 200; // 3 seconds
-        philosophers[i].time_to_die = 800; // 10 seconds
+        philosophers[i].time_to_die = 200; // 10 seconds
         philosophers[i].no_of_meal = 7; // Number of meals each philosopher should have
         philosophers[i].data = &data;
         pthread_mutex_init(&philosophers[i].left_fork, NULL);

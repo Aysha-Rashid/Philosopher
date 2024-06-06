@@ -32,7 +32,7 @@ void *monitor(void *arg)
 					   data->resources[i].current_philo, "died");
 				data->dead_flag = 1;
 				pthread_mutex_unlock(&data->death_check);
-				break ;
+				return NULL;
 			}
 		}
 		pthread_mutex_unlock(&data->death_check);
@@ -59,10 +59,10 @@ void eat(t_philo *philo, t_data *data)
 		else
 		{
 			usleep(1000);
-			pthread_mutex_lock(philo->right_fork);
+			pthread_mutex_lock(&philo->left_fork);
 			printf("%zu %d %s\n", get_current_time() - data->time,
 				   philo->current_philo, "has taken a fork");
-			pthread_mutex_lock(&philo->left_fork);
+			pthread_mutex_lock(philo->right_fork);
 			printf("%zu %d %s\n", get_current_time() - data->time,
 				   philo->current_philo, "has taken a fork");
 		}
@@ -87,7 +87,6 @@ void *routine(void *arg)
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
-	philo->data->time = get_current_time();
 	while (!philo->data->dead_flag && !philo->meal_finish)
 	{
 		eat(philo, philo->data);
@@ -117,13 +116,13 @@ void *simulation(t_data *data)
 	int			i;
 
 	i  = -1;
+	data->time = get_current_time();
 	if (data->total_philo == 1)
 	{
 		pthread_mutex_lock(&data->resources->left_fork);
 		printf("%zu %d %s\n", get_current_time() - data->time,
 			   data->resources->current_philo, "has taken a fork");
 	}
-	data->time = get_current_time();
 	while (++i < data->total_philo)
 	{
 		if (pthread_create(&data->resources[i].thread, NULL, routine, &data->resources[i]) != 0)
