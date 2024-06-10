@@ -71,6 +71,8 @@ void	init_philo(t_data	*data, char	**argv)
 		data->resources[i].last_meal_time = get_current_time();
 		data->resources[i].data = data;
 		pthread_mutex_init(&data->resources[i].left_fork, NULL);
+		pthread_mutex_init(&data->resources[i].write, NULL);
+		pthread_mutex_init(&data->resources[i].philo_dead, NULL);
 		if (i == data->total_philo - 1)
 			data->resources[i].right_fork = &data->resources[0].left_fork;
 		else

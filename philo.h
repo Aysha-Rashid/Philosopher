@@ -23,12 +23,15 @@ typedef struct s_philo
 	int				current_philo;
 	int				meal_finish;
 	int				no_of_meal;
+	// int				philo_dead;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	size_t			time_to_die;
 	size_t			last_meal_time;
 	pthread_mutex_t	left_fork;
-	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	* right_fork;
+	pthread_mutex_t	write;
+	pthread_mutex_t	philo_dead;
 	pthread_t		thread;
 	struct s_data	*data;
 }				t_philo;
