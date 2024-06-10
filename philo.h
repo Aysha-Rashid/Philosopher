@@ -47,7 +47,7 @@ typedef struct s_data
 }				t_data;
 
 int		parsing_arg(char **argv);
-void	init(char **argv, t_data *data);
+void	init(char **argv, t_data *data, t_philo	*philo);
 void	free_philos(t_data *data);
 void	error(char *message);
 int		ft_strcmp(char	*str1, char	*str2);

@@ -105,6 +105,7 @@ void *routine(void *arg)
                philo->current_philo, "is sleeping");
         pthread_mutex_unlock(&philo->write);
         ft_sleep(philo->time_to_sleep);
+        pthread_mutex_lock(&philo->write);
         if (philo->data->dead_flag)
         {
             pthread_mutex_unlock(&philo->write);
@@ -112,6 +113,7 @@ void *routine(void *arg)
         }
         printf("%zu %d %s\n", get_current_time() - philo->data->time,
                philo->current_philo, "is thinking");
+        pthread_mutex_unlock(&philo->write);
     }
     return NULL;
 }

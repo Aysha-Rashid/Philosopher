@@ -21,6 +21,7 @@
 int	main(int argc, char **argv)
 {
 	t_data	data;
+	t_philo	philo[200];
 
 	// data.resources = 0;
 	if (argc < 5)
@@ -31,7 +32,7 @@ int	main(int argc, char **argv)
 		return (0);
 	if (ft_atoi(argv[1]) > 200)
 		return(error("Philo is 200"), 0);
-	init(argv, &data);
+	init(argv, &data, philo);
 	simulation(&data);
 	// free_philos(&data);
 	return (0);

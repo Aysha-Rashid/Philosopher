@@ -100,13 +100,14 @@ void	init_philo(t_data	*data, char	**argv)
 // 	pthread_mutex_init(&data->death_check, NULL);
 // }
 
-void init(char **argv, t_data *data)
+void init(char **argv, t_data *data, t_philo *philo)
 {
     int no_of_philo;
 
     no_of_philo = ft_atoi(argv[1]);
     data->total_philo = no_of_philo;
-    data->resources = malloc(sizeof(t_philo) * data->total_philo);
+	data->resources = philo;
+    // data->resources = malloc(sizeof(t_philo) * data->total_philo);
     if (data->resources == NULL)
     {
         perror("malloc() error");
