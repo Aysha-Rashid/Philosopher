@@ -36,6 +36,6 @@ size_t	get_current_time(void)
 		printf("gettimeofday error!\n");
 		return (0);
 	}
-	return (time.tv_sec * 1000 + time.tv_usec / 1000); // convert the number of seconds into milliseconds
+	return (time.tv_sec * 1000 + time.tv_usec/ 1000); // convert the number of seconds into milliseconds
 	// convert the number of microseconds into milliseconds
 }
