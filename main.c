@@ -23,7 +23,6 @@ int	main(int argc, char **argv)
 	t_data	data;
 	t_philo	philo[200];
 
-	// data.resources = 0;
 	if (argc < 5)
 		return (error("less then 5 arg"), 0);
 	if (argc > 6)
@@ -34,7 +33,6 @@ int	main(int argc, char **argv)
 		return(error("Philo is 200"), 0);
 	init(argv, &data, philo);
 	simulation(&data);
-	// free_philos(&data);
 	return (0);
 }
 

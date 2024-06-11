@@ -77,28 +77,9 @@ void	init_philo(t_data	*data, char	**argv)
 			data->resources[i].right_fork = &data->resources[0].left_fork;
 		else
 			data->resources[i].right_fork = &data->resources[i + 1].left_fork;
-		// pthread_mutex_init(&data->resources[(i + 1) % no_of_philo].right_fork,
-		// 	NULL);
 		i++;
 	}
 }
-
-// void	init(char **argv, t_data *data)
-// {
-// 	int	no_of_philo;
-
-// 	no_of_philo = ft_atoi(argv[1]);
-// 	data->total_philo = no_of_philo;
-// 	data->resources = malloc(sizeof(t_philo) * data->total_philo );
-// 	if (data->resources == NULL)
-// 	{
-// 		perror("malloc() error");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	data->dead_flag = 0;
-// 	init_philo(data, argv);
-// 	pthread_mutex_init(&data->death_check, NULL);
-// }
 
 void init(char **argv, t_data *data, t_philo *philo)
 {
@@ -117,18 +98,3 @@ void init(char **argv, t_data *data, t_philo *philo)
     init_philo(data, argv);
     pthread_mutex_init(&data->death_check, NULL);
 }
-
-
-// void	free_philos(t_data *data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (data->total_philo > i)
-// 	{
-// 		pthread_mutex_destroy(data->resources[i].thread);
-// 		i++;
-// 	}
-// 	free(data->resources);
-// 	data->resources = NULL;
-// }
