@@ -3,8 +3,8 @@ NAME = philo
 SCR= main.c \
 	utils.c	\
 	extra.c	\
-	simulation.c \
 	time.c \
+	simulation.c \
 
 OBJ = $(SCR:.c=.o)
 CC = cc
