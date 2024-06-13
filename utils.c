@@ -60,7 +60,6 @@ void	init_philo(t_data	*data, char	**argv)
     pthread_mutex_init(&data->death_check, NULL);
 	pthread_mutex_init(&data->write, NULL);
 	pthread_mutex_init(&data->resources->philo_dead, NULL);
-	pthread_mutex_init(&data->sync_mutex, NULL);
 	while (i < data->total_philo)
 	{
 		data->resources[i].meal_finish = 0;
@@ -97,6 +96,5 @@ void init(char **argv, t_data *data, t_philo *philo)
         exit(EXIT_FAILURE);
     }
     data->dead_flag = 0;
-	data->turn = 0;
     init_philo(data, argv);
 }

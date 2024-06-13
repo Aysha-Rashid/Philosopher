@@ -39,12 +39,8 @@ typedef struct s_data
 {
 	int				total_philo;
 	int				dead_flag;
-	int				thread_current_flag;
 	size_t			time;
-	int				turn;
-	int				sync_counter;
 	t_philo			*resources;
-	pthread_mutex_t	sync_mutex;
 	pthread_mutex_t	write;
 	pthread_mutex_t	death_check;
 }				t_data;
