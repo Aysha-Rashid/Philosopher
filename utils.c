@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/27 21:35:45 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/05/27 21:35:45 by ayal-ras         ###   ########.fr       */
+/*   Created: 2024/06/15 21:40:58 by ayal-ras          #+#    #+#             */
+/*   Updated: 2024/06/15 21:40:58 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,12 @@ int	parsing_arg(char **argv)
 void	init_philo(t_data	*data, char	**argv)
 {
 	int	i;
-	int	no_of_philo;
 
-	i = 0;
-	no_of_philo = ft_atoi(argv[1]);
-	data->total_philo = no_of_philo;
-    pthread_mutex_init(&data->death_check, NULL);
-	pthread_mutex_init(&data->write, NULL);
-	pthread_mutex_init(&data->resources->philo_dead, NULL);
-	while (i < data->total_philo)
+	i = -1;
+	while (++i < data->total_philo)
 	{
+		pthread_mutex_init(&data->resources[i].philo_dead, NULL);
+		data->resources[i].every_die = 0;
 		data->resources[i].meal_finish = 0;
 		data->resources[i].current_philo = i + 1;
 		data->resources[i].time_to_die = ft_atoi(argv[2]);
@@ -78,23 +74,40 @@ void	init_philo(t_data	*data, char	**argv)
 			data->resources[i].right_fork = &data->resources[0].left_fork;
 		else
 			data->resources[i].right_fork = &data->resources[i + 1].left_fork;
-		i++;
 	}
 }
 
-void init(char **argv, t_data *data, t_philo *philo)
+void	init(char **argv, t_data *data, t_philo *philo)
 {
-    int no_of_philo;
+	int	no_of_philo;
 
-    no_of_philo = ft_atoi(argv[1]);
-    data->total_philo = no_of_philo;
+	no_of_philo = ft_atoi(argv[1]);
+	data->total_philo = no_of_philo;
 	data->resources = philo;
-    // data->resources = malloc(sizeof(t_philo) * data->total_philo);
-    if (data->resources == NULL)
-    {
-        perror("malloc() error");
-        exit(EXIT_FAILURE);
-    }
-    data->dead_flag = 0;
-    init_philo(data, argv);
+	if (data->resources == NULL)
+	{
+		perror("malloc() error");
+		exit(EXIT_FAILURE);
+	}
+	data->dead_flag = 0;
+	pthread_mutex_init(&data->death_check, NULL);
+	pthread_mutex_init(&data->write, NULL);
+	init_philo(data, argv);
+}
+
+void	destory_thread(t_philo	*philo)
+{
+	int	i;
+
+	i = -1;
+	pthread_mutex_destroy(&philo->data->write);
+	pthread_mutex_destroy(&philo->data->death_check);
+	while (++i < philo->data->total_philo)
+	{
+		pthread_mutex_destroy(&philo->philo_dead);
+		pthread_mutex_destroy(&philo->left_fork);
+		// pthread_mutex_destroy(philo->right_fork);
+		if (philo[i].right_fork != &philo[(i + 1) % philo->data->total_philo].left_fork)
+			pthread_mutex_destroy(philo[i].right_fork);
+	}
 }

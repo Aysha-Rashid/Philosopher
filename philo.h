@@ -22,12 +22,12 @@ typedef struct s_philo
 {
 	int				current_philo;
 	int				meal_finish;
+	int				every_die;
 	int				no_of_meal;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	size_t			time_to_die;
 	size_t			last_meal_time;
-	// int				all_died;
 	pthread_mutex_t	philo_dead;
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	*right_fork;
@@ -55,3 +55,5 @@ void	ft_sleep(size_t	milliseconds);
 int		overflow(long max, long r, int sign);
 int		ft_atoi(const char	*str);
 int		ft_isdigit(int c);
+void	handle_one(t_data	*data);
+void	destory_thread(t_philo	*philo);

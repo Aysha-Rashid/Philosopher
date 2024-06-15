@@ -12,20 +12,13 @@
 
 #include "philo.h"
 
-// void ft_sleep(size_t milliseconds)
-// {
-// 	// size_t	time;
+void	ft_sleep(size_t milliseconds)
+{
+	size_t	start_time;
 
-// 	// time = get_current_time();
-// 	// if (get_current_time() - time > milliseconds)
-// 		usleep(1000 * milliseconds);
-// }
-
-void ft_sleep(size_t milliseconds) {
-    size_t start_time = get_current_time();
-    while ((get_current_time() - start_time) < (size_t)milliseconds) {
-        usleep(100); // sleep for 100 microseconds to avoid busy-waiting
-    }
+	start_time = get_current_time();
+	while ((get_current_time() - start_time) < (size_t)milliseconds)
+		usleep(100);
 }
 
 size_t	get_current_time(void)

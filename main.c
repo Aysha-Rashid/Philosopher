@@ -30,9 +30,10 @@ int	main(int argc, char **argv)
 	if (parsing_arg(argv))
 		return (0);
 	if (ft_atoi(argv[1]) > 200)
-		return(error("Philo is 200"), 0);
+		return (error("Philo is 200"), 0);
 	init(argv, &data, philo);
 	simulation(&data);
+	destory_thread(philo);
 	return (0);
 }
 
