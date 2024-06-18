@@ -18,7 +18,7 @@ void	ft_sleep(size_t milliseconds)
 
 	start_time = get_current_time();
 	while ((get_current_time() - start_time) < (size_t)milliseconds)
-		usleep(100);
+		usleep(500);
 }
 
 size_t	get_current_time(void)

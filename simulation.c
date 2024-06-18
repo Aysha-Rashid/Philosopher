@@ -16,8 +16,8 @@ void	eat(t_philo *philo, t_data *data)
 {
 	if (!philo->every_die)
 	{
-		if (philo->current_philo % 2 == 0)
-			usleep(1000);
+		// if (philo->current_philo % 2 == 0)
+		// 	usleep(1000);
 		pthread_mutex_lock(philo->right_fork);
 		print_action(data, philo->current_philo, "has taken a fork");
 		pthread_mutex_lock(&philo->left_fork);
@@ -43,6 +43,8 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->data->total_philo == 1)
 		return (handle_one(philo->data), NULL);
+	if (philo->current_philo % 2 == 0)
+		ft_sleep(philo->time_to_eat - 10);
 	while (!philo->every_die && philo->no_of_meal)
 	{
 		if (!philo->every_die)
@@ -63,17 +65,12 @@ void	*routine(void *arg)
 
 int	check_philosopher(t_data *data, int i)
 {
-	// int	result;
-
-	// result = 0;
 	pthread_mutex_lock(&data->resources[i].philo_dead);
 	if ((get_current_time() - data->resources[i].last_meal_time)
 		>= data->resources[i].time_to_die)
 	{
+		print_action(data, data->resources[i].current_philo, "died");
 		every_die(data);
-		printf("%zu %d %s\n", get_current_time() - data->time,
-			data->resources[i].current_philo, "died");
-		// result = 1;
 		data->dead_flag = 1;
 	}
 	pthread_mutex_unlock(&data->resources[i].philo_dead);
