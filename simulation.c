@@ -16,8 +16,6 @@ void	eat(t_philo *philo, t_data *data)
 {
 	if (!philo->every_die)
 	{
-		// if (philo->current_philo % 2 == 0)
-		// 	usleep(1000);
 		pthread_mutex_lock(philo->right_fork);
 		print_action(data, philo->current_philo, "has taken a fork");
 		pthread_mutex_lock(&philo->left_fork);
