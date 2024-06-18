@@ -66,7 +66,7 @@ void	init_philo(t_data	*data, char	**argv)
 		if (argv[5])
 			data->resources[i].no_of_meal = ft_atoi(argv[5]);
 		else
-			data->resources[i].no_of_meal =	-1;
+			data->resources[i].no_of_meal = -1;
 		data->resources[i].last_meal_time = get_current_time();
 		data->resources[i].data = data;
 		pthread_mutex_init(&data->resources[i].left_fork, NULL);
@@ -95,19 +95,13 @@ void	init(char **argv, t_data *data, t_philo *philo)
 	init_philo(data, argv);
 }
 
-void	destory_thread(t_philo	*philo)
+void	every_die(t_data *data)
 {
 	int	i;
 
 	i = -1;
-	pthread_mutex_destroy(&philo->data->write);
-	pthread_mutex_destroy(&philo->data->death_check);
-	while (++i < philo->data->total_philo)
-	{
-		pthread_mutex_destroy(&philo->philo_dead);
-		pthread_mutex_destroy(&philo->left_fork);
-		// pthread_mutex_destroy(philo->right_fork);
-		if (philo[i].right_fork != &philo[(i + 1) % philo->data->total_philo].left_fork)
-			pthread_mutex_destroy(philo[i].right_fork);
-	}
+	pthread_mutex_lock(&data->write);
+	while (++i < data->total_philo)
+		data->resources[i].every_die = 1;
+	pthread_mutex_unlock(&data->write);
 }

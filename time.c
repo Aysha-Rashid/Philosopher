@@ -32,3 +32,15 @@ size_t	get_current_time(void)
 	}
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
+
+void	handle_one(t_data	*data)
+{
+	pthread_mutex_lock(&data->resources->left_fork);
+	print_action(data, 1, "has taken a fork");
+	pthread_mutex_unlock(&data->resources->left_fork);
+	pthread_mutex_lock(&data->resources->philo_dead);
+	printf("%zu %d %s\n", data->resources->time_to_die,
+		data->resources->current_philo, "died");
+	data->dead_flag = 1;
+	pthread_mutex_unlock(&data->resources->philo_dead);
+}

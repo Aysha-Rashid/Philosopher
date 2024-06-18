@@ -10,12 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// number_of_philosophers;
-// time_to_die;
-// time_to_eat;
-// time_to_sleep;
-// number_of_times_each_philosopher_must_eat;
-
 #include "philo.h"
 
 int	main(int argc, char **argv)
@@ -37,6 +31,19 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
-//keep checking how many fork they have by their side
-//how many times they are eating
-//give priority to the one who ate less
+void	destory_thread(t_philo	*philo)
+{
+	int	i;
+
+	i = -1;
+	pthread_mutex_destroy(&philo->data->write);
+	pthread_mutex_destroy(&philo->data->death_check);
+	pthread_mutex_destroy(&philo->philo_dead);
+	pthread_mutex_destroy(&philo->left_fork);
+	while (++i < philo->data->total_philo)
+	{
+		if (philo[i].right_fork != &philo[(i + 1)
+				% philo->data->total_philo].left_fork)
+			pthread_mutex_destroy(philo[i].right_fork);
+	}
+}

@@ -29,13 +29,9 @@ int	ft_strcmp(char	*str1, char	*str2)
 int	ft_isdigit(int c)
 {
 	if (c >= 48 && c <= 57)
-	{
 		return (1);
-	}
 	else
-	{
 		return (0);
-	}
 }
 
 int	overflow(long max, long r, int sign)
@@ -76,4 +72,12 @@ int	ft_atoi(const char	*str)
 		r = (r * 10) + str[i++] - '0';
 	}
 	return ((int)r * sign);
+}
+
+void	print_action(t_data *data, int id, char *message)
+{
+	pthread_mutex_lock(&data->write);
+	if (!data->resources->every_die)
+		printf("%zu %d %s\n", get_current_time() - data->time, id, message);
+	pthread_mutex_unlock(&data->write);
 }

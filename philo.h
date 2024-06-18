@@ -57,3 +57,5 @@ int		ft_atoi(const char	*str);
 int		ft_isdigit(int c);
 void	handle_one(t_data	*data);
 void	destory_thread(t_philo	*philo);
+void	print_action(t_data *data, int id, char *message);
+void	every_die(t_data *data);
