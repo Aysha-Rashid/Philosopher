@@ -50,9 +50,9 @@ void	*routine(void *arg)
 			eat(philo, philo->data);
 			if (philo->every_die || !philo->no_of_meal)
 				return (NULL);
-			if (!philo->every_die)
+			if (!philo->every_die && philo->time_to_sleep < philo->time_to_die)
 				print_action(philo->data, philo->current_philo, "is sleeping");
-			if (!philo->every_die)
+			if (!philo->every_die && philo->time_to_sleep < philo->time_to_die)
 				ft_sleep(philo->time_to_sleep);
 			if (!philo->every_die)
 				print_action(philo->data, philo->current_philo, "is thinking");
